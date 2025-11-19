@@ -1,0 +1,25 @@
+{
+  "name": "ana-julia",
+  "version": "1.0.0",
+  "main": "backend/server.js",
+  "description": "Sistema de controle financeiro pessoal",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+  "test": "echo 'Error: no test specified' && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

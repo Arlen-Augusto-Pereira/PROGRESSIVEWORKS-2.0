@@ -1,0 +1,25 @@
+{
+  "name": "MindSpend - Controle Emocional de Gastos",
+  "short_name": "MindSpend",
+  "description": "Aplicativo para controle de gastos com análise emocional",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2196F3",
+  "theme_color": "#2196F3",
+  "orientation": "portrait",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["finance", "productivity", "lifestyle"],
+  "lang": "pt-BR"
+}

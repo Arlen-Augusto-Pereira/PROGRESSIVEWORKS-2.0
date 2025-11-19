@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle Financeiro - Ana Julia</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Tela de Login -->
+        <div id="login-screen" class="screen active">
+            <div class="login-container">
+                <div class="login-header">
+                    <i class="fas fa-wallet"></i>
+                    <h1>Controle Financeiro</h1>
+                    <p>Gerencie suas finanças de forma inteligente</p>
+                </div>
+
+                <form id="login-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="login-email">Email:</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Senha:</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Entrar
+                    </button>
+                </form>
+
+                <div class="auth-switch">
+                    <p>Não tem conta? <a href="#" id="show-register">Cadastre-se</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tela de Cadastro -->
+        <div id="register-screen" class="screen">
+            <div class="login-container">
+                <div class="login-header">
+                    <i class="fas fa-user-plus"></i>
+                    <h1>Criar Conta</h1>
+                    <p>Comece a controlar suas finanças hoje</p>
+                </div>
+
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="register-name">Nome:</label>
+                        <input type="text" id="register-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-email">Email:</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-password">Senha:</label>
+                        <input type="password" id="register-password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Cadastrar
+                    </button>
+                </form>
+
+                <div class="auth-switch">
+                    <p>Já tem conta? <a href="#" id="show-login">Faça login</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Principal -->
+        <div id="dashboard-screen" class="screen">
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <h1><i class="fas fa-wallet"></i> Controle Financeiro</h1>
+                </div>
+                <div class="header-right">
+                    <span id="user-name">Usuário</span>
+                    <button id="logout-btn" class="btn btn-secondary">
+                        <i class="fas fa-sign-out-alt"></i> Sair
+                    </button>
+                </div>
+            </header>
+
+            <main class="dashboard-main">
+                <div class="dashboard-cards">
+                    <div class="card balance-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-coins"></i> Saldo Total</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="balance-amount" id="total-balance">R\$ 0,00</div>
+                        </div>
+                    </div>
+
+                    <div class="card income-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-arrow-up"></i> Receitas</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="amount income" id="total-income">R\$ 0,00</div>
+                        </div>
+                    </div>
+
+                    <div class="card expense-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-arrow-down"></i> Despesas</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="amount expense" id="total-expense">R\$ 0,00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-actions">
+                    <button class="btn btn-success" id="add-income-btn">
+                        <i class="fas fa-plus"></i> Adicionar Receita
+                    </button>
+                    <button class="btn btn-danger" id="add-expense-btn">
+                        <i class="fas fa-minus"></i> Adicionar Despesa
+                    </button>
+                    <button class="btn btn-info" id="manage-accounts-btn">
+                        <i class="fas fa-credit-card"></i> Gerenciar Contas
+                    </button>
+                </div>
+
+                <div class="recent-transactions">
+                    <h3><i class="fas fa-history"></i> Transações Recentes</h3>
+                    <div id="transactions-list" class="transactions-list">
+                        <p class="no-data">Nenhuma transação encontrada</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Carregando...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="src/js/api.js"></script>
+    <script src="src/js/app.js"></script>
+</body>
+</html>

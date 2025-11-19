@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindSpend - Controle Emocional de Gastos</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="theme-color" content="#2196F3">
+</head>
+<body>
+<body>
+    
+    <div id="loginScreen" class="screen active">
+        <div class="container">
+            <div class="logo">
+                <h1>💰 MindSpend</h1>
+                <p>Controle emocional de gastos</p>
+            </div>
+            <form id="loginForm" class="form">
+                <input type="text" id="username" placeholder="Nome de usuário" required>
+                <input type="password" id="password" placeholder="Senha" required>
+                <button type="submit">Entrar</button>
+                <p class="switch-form">
+                    Não tem conta? <a href="#" id="showRegister">Cadastre-se</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+   
+    <div id="registerScreen" class="screen">
+        <div class="container">
+            <div class="logo">
+                <h1>💰 MindSpend</h1>
+                <p>Criar nova conta</p>
+            </div>
+            <form id="registerForm" class="form">
+                <input type="text" id="newUsername" placeholder="Nome de usuário" required>
+                <input type="email" id="email" placeholder="E-mail" required>
+                <input type="password" id="newPassword" placeholder="Senha" required>
+                <button type="submit">Cadastrar</button>
+                <p class="switch-form">
+                    Já tem conta? <a href="#" id="showLogin">Faça login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    
+    <div id="appScreen" class="screen">
+        
+        <header class="app-header">
+            <h1>MindSpend</h1>
+            <div class="user-info">
+                <span id="userGreeting"></span>
+                <button id="logoutBtn" class="btn-icon">🚪</button>
+            </div>
+        </header>
+
+        
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-tab="dashboard">📊 Dashboard</button>
+            <button class="nav-btn" data-tab="add-expense">➕ Adicionar</button>
+            <button class="nav-btn" data-tab="insights">🧠 Insights</button>
+            <button class="nav-btn" data-tab="profile">👤 Perfil</button>
+        </nav>
+
+        
+        <main class="app-content">
+            
+            <div id="dashboard" class="tab-content active">
+                <div class="summary-cards">
+                    <div class="card">
+                        <h3>Total do Mês</h3>
+                        <p class="amount" id="monthlyTotal">R\$ 0,00</p>
+                    </div>
+                    <div class="card">
+                        <h3>Maior Categoria</h3>
+                        <p id="topCategory">-</p>
+                    </div>
+                    <div class="card">
+                        <h3>Emoção Dominante</h3>
+                        <p id="topEmotion">-</p>
+                        <div class="accounts-section">
+                    <h3>💼 Minhas Contas</h3>
+                    <div class="accounts-grid" id="accountsGrid">
+                        
+                  </div>
+                <div class="accounts-summary">
+                  <div class="summary-item">
+                    <span>Total Disponível:</span>
+                    <span id="totalBalance" class="balance-positive">R\$ 0,00</span>
+                  </div>
+                <div class="summary-item">
+                  <span>Cartão de Crédito:</span>
+            <span id="creditDebt" class="balance-negative">R\$ 0,00</span>
+        </div>
+    </div>
+</div>
+    </div>
+     </div>     
+        <div class="chart-container">
+                <h3>📊 Gastos por Categoria</h3>
+                  <div class="chart-wrapper">
+                    <canvas id="categoryChart"></canvas>
+                          </div>
+                    </div>
+
+                <div class="recent-expenses">
+                    <h3>Gastos Recentes</h3>
+                    <div id="recentExpensesList"></div>
+                </div>
+            </div>
+
+         
+<div id="add-expense" class="tab-content">
+   
+    <div class="transaction-type-selector">
+        <button class="type-btn active" data-type="expense">
+            📤 Despesa
+        </button>
+        <button class="type-btn" data-type="income">
+            📥 Receita
+        </button>
+        <button class="type-btn" data-type="transfer">
+            🔄 Transferência
+        </button>
+    </div>
+
+    
+    <form id="expenseForm" class="transaction-form active">
+        <h2>📤 Registrar Despesa</h2>
+        
+        <label for="expenseAccount">Conta de Origem</label>
+        <select id="expenseAccount" required>
+            <option value="">Selecione uma conta</option>
+            
+        </select>
+        
+        <label for="amount">Valor (R\$)</label>
+        <input type="number" id="amount" step="0.01" required>
+        
+        <label for="description">Descrição</label>
+        <input type="text" id="description" placeholder="Ex: Almoço no restaurante" required>
+        
+        <label for="category">Categoria</label>
+        <select id="category" required>
+            <option value="">Selecione uma categoria</option>
+            <option value="alimentacao">🍽️ Alimentação</option>
+            <option value="transporte">🚗 Transporte</option>
+            <option value="lazer">🎮 Lazer</option>
+            <option value="saude">🏥 Saúde</option>
+            <option value="educacao">📚 Educação</option>
+            <option value="roupas">👕 Roupas</option>
+            <option value="casa">🏠 Casa</option>
+            <option value="outros">📦 Outros</option>
+        </select>
+        
+        <label for="emotion">Como você estava se sentindo?</label>
+        <select id="emotion" required>
+            <option value="">Selecione uma emoção</option>
+            <option value="feliz">😊 Feliz</option>
+            <option value="triste">😢 Triste</option>
+            <option value="estressado">😤 Estressado</option>
+            <option value="ansioso">😰 Ansioso</option>
+            <option value="entediado">😐 Entediado</option>
+            <option value="empolgado">🤩 Empolgado</option>
+            <option value="calmo">😌 Calmo</option>
+            <option value="irritado">😠 Irritado</option>
+        </select>
+        
+        <label for="date">Data</label>
+        <input type="date" id="date" required>
+        
+        <button type="submit" class="btn-primary expense-btn">📤 Registrar Despesa</button>
+    </form>
+
+ 
+    <form id="incomeForm" class="transaction-form">
+        <h2>📥 Registrar Receita</h2>
+        
+        <label for="incomeAccount">Conta de Destino</label>
+        <select id="incomeAccount" required>
+            <option value="">Selecione uma conta</option>
+           
+        </select>
+        
+        <label for="incomeAmount">Valor (R\$)</label>
+        <input type="number" id="incomeAmount" step="0.01" required>
+        
+        <label for="incomeDescription">Descrição</label>
+        <input type="text" id="incomeDescription" placeholder="Ex: Salário do mês" required>
+        
+        <label for="incomeCategory">Categoria</label>
+        <select id="incomeCategory" required>
+            <option value="">Selecione uma categoria</option>
+            <option value="salario">💼 Salário</option>
+            <option value="freelance">💻 Freelance</option>
+            <option value="investimentos">📈 Investimentos</option>
+            <option value="vendas">🛒 Vendas</option>
+            <option value="presente">🎁 Presente</option>
+            <option value="bonus">🎯 Bônus</option>
+            <option value="outros">📦 Outros</option>
+        </select>
+        
+        <label for="incomeEmotion">Como você estava se sentindo?</label>
+        <select id="incomeEmotion" required>
+            <option value="">Selecione uma emoção</option>
+            <option value="feliz">😊 Feliz</option>
+            <option value="aliviado">😌 Aliviado</option>
+            <option value="empolgado">🤩 Empolgado</option>
+            <option value="grato">🙏 Grato</option>
+            <option value="confiante">😎 Confiante</option>
+            <option value="ansioso">😰 Ansioso</option>
+            <option value="neutro">😐 Neutro</option>
+        </select>
+        
+        <label for="incomeDate">Data</label>
+        <input type="date" id="incomeDate" required>
+        
+        <button type="submit" class="btn-primary income-btn">📥 Registrar Receita</button>
+    </form>
+
+    
+    <form id="transferForm" class="transaction-form">
+        <h2>🔄 Transferência entre Contas</h2>
+        
+        <label for="fromAccount">Conta de Origem</label>
+        <select id="fromAccount" required>
+            <option value="">Selecione a conta de origem</option>
+            
+        </select>
+        
+        <label for="toAccount">Conta de Destino</label>
+        <select id="toAccount" required>
+            <option value="">Selecione a conta de destino</option>
+            
+        </select>
+        
+        <label for="transferAmount">Valor (R\$)</label>
+        <input type="number" id="transferAmount" step="0.01" required>
+        
+        <label for="transferDescription">Descrição</label>
+        <input type="text" id="transferDescription" placeholder="Ex: Transferência para poupança" required>
+        
+        <label for="transferDate">Data</label>
+        <input type="date" id="transferDate" required>
+        
+        <button type="submit" class="btn-primary transfer-btn">🔄 Realizar Transferência</button>
+    </form>
+</div>
+
+           
+            <div id="insights" class="tab-content">
+                <h2>🧠 Insights Emocionais</h2>
+                <div id="insightsList" class="insights-container">
+                    <div class="insight-placeholder">
+                        <p>Registre alguns gastos para receber insights personalizados!</p>
+                    </div>
+                </div>
+            </div>
+            
+                
+<nav class="bottom-nav">
+    <button class="nav-btn active" data-tab="dashboard">📊 Dashboard</button>
+    <button class="nav-btn" data-tab="add-expense">➕ Adicionar</button>
+    <button class="nav-btn" data-tab="accounts">🏦 Contas</button>
+    <button class="nav-btn" data-tab="insights">🧠 Insights</button>
+    <button class="nav-btn" data-tab="profile">👤 Perfil</button>
+</nav>
+
+
+<div id="accounts" class="tab-content">
+    <div class="accounts-header">
+        <h2>🏦 Gestão de Contas</h2>
+        <button id="addAccountBtn" class="btn-primary">
+            ➕ Nova Conta
+        </button>
+    </div>
+
+   
+    <div class="accounts-summary-section">
+        <div class="summary-cards">
+            <div class="card">
+                <h3>Total Disponível</h3>
+                <p class="amount positive" id="summaryTotalBalance">R\$ 0,00</p>
+            </div>
+            <div class="card">
+                <h3>Cartão de Crédito</h3>
+                <p class="amount negative" id="summaryCreditDebt">R\$ 0,00</p>
+            </div>
+            <div class="card">
+                <h3>Total de Contas</h3>
+                <p class="count" id="summaryAccountCount">0</p>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="accounts-list-section">
+        <h3>Suas Contas</h3>
+        <div id="accountsList" class="accounts-list">
+         
+        </div>
+    </div>
+
+    
+    <div id="accountModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Nova Conta</h3>
+                <button class="modal-close" id="closeAccountModal">&times;</button>
+            </div>
+            
+            <form id="accountForm" class="modal-form">
+                <input type="hidden" id="accountId">
+                
+                <label for="accountName">Nome da Conta</label>
+                <input type="text" id="accountName" placeholder="Ex: Conta Corrente Banco X" required>
+                
+                <label for="accountType">Tipo de Conta</label>
+                <select id="accountType" required>
+                    <option value="">Selecione o tipo</option>
+                    <option value="checking">🏦 Conta Corrente</option>
+                    <option value="savings">💰 Poupança</option>
+                    <option value="cash">💵 Dinheiro</option>
+                    <option value="credit_card">💳 Cartão de Crédito</option>
+                    <option value="investment">📈 Investimentos</option>
+                    <option value="other">📦 Outros</option>
+                </select>
+                
+                <label for="accountIcon">Ícone</label>
+                <div class="icon-selector">
+                    <input type="text" id="accountIcon" placeholder="🏦" maxlength="2">
+                    <div class="icon-options">
+                        <button type="button" class="icon-option" data-icon="🏦">🏦</button>
+                        <button type="button" class="icon-option" data-icon="💰">💰</button>
+                        <button type="button" class="icon-option" data-icon="💵">💵</button>
+                        <button type="button" class="icon-option" data-icon="💳">💳</button>
+                        <button type="button" class="icon-option" data-icon="📈">📈</button>
+                        <button type="button" class="icon-option" data-icon="💎">💎</button>
+                        <button type="button" class="icon-option" data-icon="🏧">🏧</button>
+                        <button type="button" class="icon-option" data-icon="💼">💼</button>
+                    </div>
+                </div>
+                
+                <label for="accountColor">Cor</label>
+                <div class="color-selector">
+                    <input type="color" id="accountColor" value="#2196F3">
+                    <div class="color-presets">
+                        <button type="button" class="color-preset" data-color="#2196F3" style="background: #2196F3;"></button>
+                        <button type="button" class="color-preset" data-color="#4CAF50" style="background: #4CAF50;"></button>
+                        <button type="button" class="color-preset" data-color="#FF9800" style="background: #FF9800;"></button>
+                        <button type="button" class="color-preset" data-color="#F44336" style="background: #F44336;"></button>
+                        <button type="button" class="color-preset" data-color="#9C27B0" style="background: #9C27B0;"></button>
+                        <button type="button" class="color-preset" data-color="#607D8B" style="background: #607D8B;"></button>
+                    </div>
+                </div>
+                
+                <label for="initialBalance">Saldo Inicial</label>
+                <input type="number" id="initialBalance" step="0.01" value="0.00">
+                
+                <div id="creditLimitSection" class="form-section" style="display: none;">
+                    <label for="creditLimit">Limite do Cartão</label>
+                    <input type="number" id="creditLimit" step="0.01" placeholder="1000.00">
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" id="cancelAccountBtn" class="btn-secondary">Cancelar</button>
+                    <button type="submit" id="saveAccountBtn" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+   
+    <div id="confirmModal" class="modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h3>Confirmar Ação</h3>
+                <button class="modal-close" id="closeConfirmModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage"></p>
+            </div>
+            <div class="modal-actions">
+                <button id="confirmCancel" class="btn-secondary">Cancelar</button>
+                <button id="confirmAction" class="btn-danger">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+          
+            <div id="profile" class="tab-content">
+                <h2>👤 Perfil</h2>
+                <div class="profile-info">
+                    <p><strong>Usuário:</strong> <span id="profileUsername"></span></p>
+                    <p><strong>Total de gastos registrados:</strong> <span id="totalExpenses"></span></p>
+                    <p><strong>Membro desde:</strong> <span id="memberSince"></span></p>
+                </div>
+                
+                <div class="profile-actions">
+                    <button id="exportData" class="btn-secondary">📤 Exportar Dados</button>
+                    <button id="clearData" class="btn-danger">🗑️ Limpar Dados</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+       <script>
+        
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('Service Worker registrado'))
+                .catch(err => console.log('Erro no Service Worker'));
+        }
+    </script>
+
+    
+    <script src="src/js/database.js"></script>
+    <script src="src/js/unified-accounts.js"></script>
+    <script src="src/js/unified-transactions.js"></script>
+    <script src="src/js/migration-utils.js"></script>
+
+    
+    <script src="src/js/app.js"></script>
+    <script src="src/js/auth.js"></script>
+
+    
+    <script src="src/js/charts.js"></script>
+    <script src="src/js/ai-insights.js"></script>
+    <script src="src/js/filters.js"></script>
+    <script src="src/js/account-manager-ui.js"></script>
+
+   
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            window.expenseManager = window.unifiedTransactionManager;
+            window.accountManager = window.unifiedAccountManager;
+            
+            console.log('Sistema unificado inicializado com compatibilidade');
+        });
+    </script>
+
+    <script>
+     
+        setTimeout(() => {
+            console.log('=== DEBUG DE CONTAS ===');
+            console.log('dbManager:', window.dbManager);
+            console.log('unifiedAccountManager:', window.unifiedAccountManager);
+            console.log('unifiedTransactionManager:', window.unifiedTransactionManager);
+            
+            if (window.unifiedAccountManager) {
+                const accounts = window.unifiedAccountManager.getAccounts();
+                console.log('Contas disponíveis:', accounts);
+                
+                
+                const selects = ['expenseAccount', 'incomeAccount', 'fromAccount', 'toAccount'];
+                selects.forEach(selectId => {
+                    const select = document.getElementById(selectId);
+                    console.log(`Select ${selectId}:`, select ? `${select.options.length} opções` : 'não encontrado');
+                });
+            }
+            
+           
+            if (window.unifiedTransactionManager && window.unifiedTransactionManager.reloadAccountsInSelects) {
+                console.log('Forçando reload das contas...');
+                window.unifiedTransactionManager.reloadAccountsInSelects();
+            }
+        }, 3000);
+    </script>
+
+</body>
+</html>
